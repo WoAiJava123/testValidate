@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="description" content="">
+		<meta name="author" content="">
+
+		<title>Dashboard Template for Bootstrap</title>
+</head>
+<body>
+	<form action="/add" method="post">
+		<table>
+			<tr><td><input readonly="readonly" name="form_name" th:value="${form_name}"/></td></tr>
+			<tr th:each="list:${lists}">
+				<td th:text="${list.column_name}">:</td>
+				<td><input type="hidden" th:name="${list.column_name}+'_type'" th:value="${list.column_type}"/></td>
+				<td th:if="${list.column_type=='input'}">
+					<input th:name="${list.column_name}"/>
+				</td>
+				<td th:if="${list.column_type=='select'}">
+					<select th:name="${list.column_name}">
+						<option>选择1</option>
+						<option>选择2</option>
+					</select>
+				</td>
+				<td th:if="${list.column_type=='checkbox'}">
+					<input type="checkbox" th:name="${list.column_name}"/>
+				</td>
+			</tr>
+			<tr>
+				<td><input type="submit" value="提交"/></td>
+			
+			</tr>
+		</table>
+	</form>
+</body>
+</html>

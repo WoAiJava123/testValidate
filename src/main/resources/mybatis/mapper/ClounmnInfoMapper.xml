@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="com.example.demo.dao.ClounmnInfoDao">
+ 
+  <select id="findById" resultType="com.example.demo.entitys.ClounmnInfo" parameterType="int">
+   select column_id,column_name,column_type from clounmn_info where column_id=#{column_id}; 
+  </select>
+  <!-- <select id="findAll" resultType="com.example.demo.entitys.ClounmnInfo">
+   select deptno,dname,db_source from dept; 
+  </select>
+  <insert id="addDept" parameterType="com.example.demo.entitys.ClounmnInfo">
+   INSERT INTO dept(dname,db_source) VALUES(#{dname},DATABASE());
+  </insert>-->
+  
+</mapper>
+ 
+

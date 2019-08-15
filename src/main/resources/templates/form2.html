@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="description" content="">
+		<meta name="author" content="">
+
+		<title>Dashboard Template for Bootstrap</title>
+</head>
+<body>
+	<input type="hidden" id="formDetails" th:value="${formDetails}"/>
+	<table>
+		<tr id="table1"></tr>
+	</table>
+</body>
+<script type="text/javascript" th:src="@{/webjars/jquery/3.3.1/jquery.js}"></script>
+
+<script>
+	window.onload=function(){
+		//alert(111);
+		var inputValue = document.getElementById("formDetails").value;
+		alert(inputValue);
+		var str = eval('('+inputValue+')')
+		var map1 = _jsonToMap(inputValue);
+		var tables = document.getElementById("table1");
+		tables.innerHTML = "";
+		for(var key in str){
+
+			//alert(key+':'+str[key])
+			//alert(key.substring(key.length-5, key.length));
+			if("_type" != key.substring(key.length-5, key.length)) {
+				var s1 = map1.get(key + "_type");
+				if(s1 == 'input') {
+					tables.innerHTML = tables.innerHTML + 
+					"<input value='" + key + "'/>" + ":" + 
+					"<input value='" + str[key] + "'/>" + 
+					"<br/>"
+				} else if(s1 == 'select') {
+					tables.innerHTML = tables.innerHTML + 
+					"<input value='" + key + "'/>" + ":" + 
+					"<select> " + 
+						"<option value='选择1' th:selected='${" 
+							+ str[key] +
+							"==选择1}'>选择1</option>" + 
+						"<option value='选择2' th:selected='${" + str[key] + "==选择2}'>选择2</option>" + 
+					"</select>" + 
+					"<br/>"
+				} else if(s1 == 'checkbox') {
+					tables.innerHTML = tables.innerHTML + 
+					"<input value='" + key + "'/>" + ":" + 
+					"<input type='checkbox' th:checked='${" + str[key] + "=='on'}''/>" + 
+					"<br/>"
+				}
+			}
+	
+		}
+	}
+	
+	function _objToStrMap(obj){
+		  let strMap = new Map();
+		  for (let k of Object.keys(obj)) {
+		    strMap.set(k,obj[k]);
+		  }
+		  return strMap;
+		}
+	 /**
+	  *json转换为map
+	  */
+	 function _jsonToMap(jsonStr){
+	    return this._objToStrMap(JSON.parse(jsonStr));
+	 }
+
+	   
+</script>
+</html>
